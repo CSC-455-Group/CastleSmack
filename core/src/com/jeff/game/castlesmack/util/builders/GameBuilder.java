@@ -6,14 +6,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Cannon;
-import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.House;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.util.constant.Constants;
 import com.jeff.game.castlesmack.util.data.Pair;
+import com.jeff.game.castlesmack.util.data.ProjectilePool;
 
 public class GameBuilder {
 
@@ -22,12 +21,14 @@ public class GameBuilder {
     private final TextureRegion islandTex;
     private final TextureRegion houseTex;
     private final TextureRegion cannonTex;
+    private final TextureRegion projTex;
 
     public GameBuilder(World world, ObjectMap<String, Texture> texMap) {
         this.world = world;
         islandTex = new TextureRegion(texMap.get(Constants.TexConstants.ISLAND));
         houseTex = new TextureRegion(texMap.get(Constants.TexConstants.HOUSE));
         cannonTex = new TextureRegion(texMap.get(Constants.TexConstants.PIPE));
+        projTex = new TextureRegion(texMap.get(Constants.TexConstants.ROCK));
     }
 
     public Pair<Island, Island> makeHouseGunIslands(Pair<Vector2, Vector2> housePosToGunPos) {
@@ -66,6 +67,10 @@ public class GameBuilder {
 
     public Island makeIsland(float x, float y, float width, float height, boolean moves) {
         return new Island(world, x, y, width, height, islandTex, moves);
+    }
+
+    public ProjectilePool makePool() {
+        return new ProjectilePool(world, projTex);
     }
 
     private House makeHouse(float x, float y, int playerID) {

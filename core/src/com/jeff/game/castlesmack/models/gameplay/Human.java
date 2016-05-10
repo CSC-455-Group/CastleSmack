@@ -4,7 +4,6 @@ package com.jeff.game.castlesmack.models.gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.jeff.game.castlesmack.util.data.MoveState;
-import com.jeff.game.castlesmack.util.data.TurnInfo;
 
 public class Human extends Controller {
 
@@ -13,7 +12,7 @@ public class Human extends Controller {
     }
 
     @Override
-    protected void processTurn(TurnInfo info) {
+    protected void processTurn() {
 
     }
 

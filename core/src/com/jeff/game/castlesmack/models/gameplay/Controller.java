@@ -8,19 +8,20 @@ public abstract class Controller {
 
     public boolean shoot;
     public MoveState cannonMoveState;
+    public MoveState cannonForceState;
     public final Player player;
 
     public Controller(Player player) {
         this.player = player;
     }
 
-    public final void turnStart(TurnInfo info) {
+    public final void turnStart() {
         shoot = false;
         cannonMoveState = MoveState.NEUTRAL;
-        processTurn(info);
+        processTurn();
     }
 
-    protected abstract void processTurn(TurnInfo info);
+    protected abstract void processTurn();
 
     public abstract void update();
 
