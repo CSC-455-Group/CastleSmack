@@ -36,8 +36,8 @@ public class Constants {
     public static final float WIDTH_SCREEN = 100f;
     public static final float HEIGHT_SCREEN = 52f;
 
-    public static final float PLAYER_HOUSE_MAX_HP_START = 1000;
-    public static final float PLAYER_GUN_MAX_HP_START = 400;
+    public static final float PLAYER_HOUSE_MAX_HP_START = 1200;
+    public static final float PLAYER_GUN_MAX_HP_START = 600;
 
     public static final float PLAYER_GUN_MAX_FORCE_START = 100;
     public static final float PLAYER_PROJECTILE_DAMAGE_START = 200;

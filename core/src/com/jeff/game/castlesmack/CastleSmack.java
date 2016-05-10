@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jeff.game.castlesmack.models.gameplay.AI;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Human;
 import com.jeff.game.castlesmack.models.gameplay.Player;
@@ -170,7 +171,6 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("BEGIN CONTACT:");
         Object ob1 = contact.getFixtureA().getBody().getUserData();
         Object ob2 = contact.getFixtureB().getBody().getUserData();
 

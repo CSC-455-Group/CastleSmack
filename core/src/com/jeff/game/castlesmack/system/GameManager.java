@@ -122,6 +122,8 @@ public class GameManager {
                     for (Controller controller : controllers) {
                         controller.player.cannon.rotate(MoveState.NEUTRAL);
                     }
+                }else {
+                    controller.turnStart();
                 }
                 shoot = true;
             }
