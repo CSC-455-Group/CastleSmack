@@ -7,18 +7,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.jeff.game.castlesmack.models.gameplay.AI;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Human;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.Island;
+import com.jeff.game.castlesmack.models.items.Projectile;
 import com.jeff.game.castlesmack.system.GameManager;
 import com.jeff.game.castlesmack.system.UIManager;
 import com.jeff.game.castlesmack.util.builders.GameBuilder;
@@ -92,8 +93,10 @@ public class CastleSmack extends ApplicationAdapter {
 
         Controller c1 = new Human(player1);
         Controller c2 = new Human(player2);
+        Projectile projectile = new Projectile(world, 0, 0, 4, 4, new TextureRegion(map.get(TexConstants.ROCK)),
+                Constants.PLAYER_PROJECTILE_DAMAGE_START, Constants.PLAYER_PROJECTILE_WEIGHT);
 
-        gameManager = new GameManager(world, c1, c2, islands);
+        gameManager = new GameManager(world, c1, c2, islands, projectile);
 
         entities.addAll(
                 p1Islands._1,
@@ -103,9 +106,11 @@ public class CastleSmack extends ApplicationAdapter {
                 player1.cannon,
                 player1.house,
                 player2.cannon,
-                player2.house
+                player2.house,
+                projectile,
+                i1,
+                i2
         );
-
     }
 
     @Override
