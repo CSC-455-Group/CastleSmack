@@ -79,7 +79,7 @@ public class GameManager {
         // Move the islands
         if (switchedStates) {
             for (Island island : islands) {
-                island.setDestination(ThreadLocalRandom.nextInt((int) (island.height / 2), (int) (((int) Constants.HEIGHT_SCREEN) - ((island.height / 2) + (island.getEntity() != null ? island.getEntity().height : 0)))));
+                island.setDestination(ThreadLocalRandom.nextInt((int) (island.height / 2), (int) (((int) Constants.HEIGHT_SCREEN) - ((island.height / 2) + (island.getEntity() != null ? island.getEntity().height + 3 : 0)))));
             }
             switchedStates = false;
         }
