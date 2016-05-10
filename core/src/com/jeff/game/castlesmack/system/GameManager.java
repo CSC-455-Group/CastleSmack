@@ -21,7 +21,7 @@ public class GameManager {
     private boolean shoot;
     private Controller controller;
     private Projectile projectile;
-    public Player winner;
+    public Player winner = null;
 
     public GameManager(World world, Controller c1, Controller c2, Array<Island> islands, Projectile projectile) {
         // Set the world
@@ -56,11 +56,11 @@ public class GameManager {
         Player p1 = controllers[0].player;
         Player p2 = controllers[1].player;
 
-        if (p1.house.currentHP <= 0 || p1.cannon.currentHP <= 0) {//p1 loses
+        /*if (p1.house.currentHP <= 0 || p1.cannon.currentHP <= 0) {//p1 loses
             winner = p2;
         } else if (p2.house.currentHP <= 0 || p2.cannon.currentForce <= 0) {//p2 loses
             winner = p1;
-        }
+        }*/
 
     }
 

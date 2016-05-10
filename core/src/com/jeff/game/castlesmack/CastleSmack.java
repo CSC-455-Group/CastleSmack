@@ -130,6 +130,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
         if (gameManager.winner == null) {
             gameManager.update(Gdx.graphics.getDeltaTime());
         } else {
+            System.out.println("HEEEEEEEEEEEEEEEERE");
             uiManager.winner(gameManager.winner.id);
         }
 
