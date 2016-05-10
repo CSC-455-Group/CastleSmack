@@ -144,7 +144,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
             }
         }
         batch.end();
-        renderer.render(world, debugMatrix);
+        //renderer.render(world, debugMatrix);
         batch.begin();
         uiManager.draw(batch);
         batch.end();

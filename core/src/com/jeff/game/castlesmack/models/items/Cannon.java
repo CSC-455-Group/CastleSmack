@@ -48,7 +48,7 @@ public class Cannon extends DamageAbleEntity {
     }
 
     public void shootProjectile(Projectile projectile) {
-        projectile.setPosition(body.getPosition().x + (MathUtils.cosDeg(getAngleDeg()) * height), body.getPosition().y + (MathUtils.sinDeg(getAngleDeg()) * height));
+        projectile.setPosition((float) (body.getPosition().x + (MathUtils.cosDeg(getAngleDeg()) * (height + 1.5))), (float) (body.getPosition().y + (MathUtils.sinDeg(getAngleDeg()) * (height + 1.5))));
         projectile.setVelocity((MathUtils.cosDeg(getAngleDeg()) * currentForce), (MathUtils.sinDeg(getAngleDeg()) * currentForce));
     }
 
@@ -61,7 +61,7 @@ public class Cannon extends DamageAbleEntity {
         int mul;
         switch (moveState) {
             case POSITIVE:
-                if (body.getTransform().getRotation() <= -1.54) {
+                if (getAngleDeg() <= 10) {
                     mul = 0;
                 } else {
                     mul = -1;
@@ -69,7 +69,7 @@ public class Cannon extends DamageAbleEntity {
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEGATIVE:
-                if (body.getTransform().getRotation() >= 1.54) {
+                if (getAngleDeg() >= 170) {
                     mul = 0;
                 } else {
                     mul = 1;
@@ -87,14 +87,14 @@ public class Cannon extends DamageAbleEntity {
         switch (forceState) {
             case POSITIVE: {
                 if (currentForce <= maxForce) {
-                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), Math.abs(maxForce - currentForce));
+                    float smallest = Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime();
                     currentForce += smallest;
                 }
                 break;
             }
             case NEGATIVE: {
                 if (currentForce >= 0) {
-                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), Math.abs(currentForce - maxForce));
+                    float smallest = Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime();
                     currentForce -= smallest;
                 }
                 break;

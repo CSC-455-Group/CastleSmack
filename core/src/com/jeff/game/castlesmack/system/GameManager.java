@@ -8,6 +8,7 @@ import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.models.items.Projectile;
 import com.jeff.game.castlesmack.util.constant.Constants;
+import com.jeff.game.castlesmack.util.data.MoveState;
 import com.jeff.game.castlesmack.util.data.Pair;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
@@ -93,13 +94,16 @@ public class GameManager {
             shoot = false;
             projectile.setActive(true);
             controller.player.cannon.shootProjectile(projectile);
-            System.out.println("SHOTS FIRED!");
         } else {
             if(!controller.shoot && !projectile.isActive() && !shoot) {
                 controller = nextController();
                 if(controller == null) {
                     state = state.getNextState();
                     nextController();
+                    // Set the cannons to neutral
+                    for (Controller controller : controllers) {
+                        controller.player.cannon.rotate(MoveState.NEUTRAL);
+                    }
                 }
                 shoot = true;
             }
