@@ -12,6 +12,6 @@ public class AI extends Controller {
 
     @Override
     public void update() {
-
+        shoot = true;
     }
 }

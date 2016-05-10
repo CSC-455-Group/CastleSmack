@@ -7,6 +7,7 @@ import com.jeff.game.castlesmack.models.items.Island;
 
 public class Player {
 
+    public final Controller controller;
     public final House house;
     public final Cannon cannon;
     public final Island houseIsland;
@@ -14,7 +15,8 @@ public class Player {
 
     public final int id;
 
-    public Player(House house, Cannon cannon, Island houseIsland, Island cannonIsland, int id) {
+    public Player(Controller controller, House house, Cannon cannon, Island houseIsland, Island cannonIsland, int id) {
+        this.controller = controller;
         this.house = house;
         this.cannon = cannon;
         this.houseIsland = houseIsland;

@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Cannon;
 import com.jeff.game.castlesmack.models.items.House;
@@ -44,28 +44,19 @@ public class GameBuilder {
         return new Pair<Island, Island>(houseIsland, gunIsland);
     }
 
-    public Array<Player> makePlayers(Array<Pair<Island, Island>> confs) {
-        if (confs.size < 2) {
-            throw new IllegalArgumentException("Must have at least two players");
-        }
+    public Player makePlayer(Pair<Island, Island> config, Controller controller, int id) {
+        Island houseIsland = config._1;
+        Island cannonIsland = config._2;
 
-        final Array<Player> players = new Array<Player>(confs.size);
+        Vector2 hp = new Vector2(houseIsland.body.getPosition().x,
+                houseIsland.body.getPosition().y + (Constants.HEIGHT_PLAYER_HOUSE - 0.3f));
 
-        for (int i = 0; i < confs.size; i++) {
-            Pair<Island, Island> conf = confs.get(i);
-            Island hpI = conf._1;
-            Island ipI = conf._2;
+        Vector2 ip = new Vector2(cannonIsland.body.getPosition().x,
+                cannonIsland.body.getPosition().y + (Constants.HEIGHT_PLAYER_GUN - 2.0f));
 
-            Vector2 hp = new Vector2(hpI.body.getPosition().x, hpI.body.getPosition().y + (Constants.HEIGHT_PLAYER_HOUSE - 0.3f));
-            Vector2 ip = new Vector2(ipI.body.getPosition().x, ipI.body.getPosition().y + (Constants.HEIGHT_PLAYER_GUN - 2.0f));
-
-            House house = makeHouse(hp.x, hp.y, i);
-            Cannon cannon = makeCannon(ip.x, ip.y, i);
-
-            players.add(new Player(house, cannon, hpI, ipI, i));
-        }
-
-        return players;
+        House house = makeHouse(hp.x, hp.y, id);
+        Cannon cannon = makeCannon(ip.x, ip.y, id);
+        return new Player(controller, house, cannon, houseIsland, cannonIsland, id);
     }
 
     public Island makeIsland(float x, float y, float width, float height, boolean moves) {

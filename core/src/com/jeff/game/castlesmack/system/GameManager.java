@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class GameManager implements Disposable {
 
-    private enum State {
+   /* private enum State {
         INTURN,
         BETWEEN_TURN
     }
@@ -221,7 +221,7 @@ public class GameManager implements Disposable {
         }
         calculatedPositions = false;
         state = State.BETWEEN_TURN;
-    }
+    }*/
 
     @Override
     public void dispose() {
