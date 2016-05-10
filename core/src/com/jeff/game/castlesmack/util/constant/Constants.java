@@ -30,8 +30,8 @@ public class Constants {
     public static final float WIDTH_PLAYER_GUN_ISLAND = 7;
     public static final float HEIGHT_PLAYER_GUN_ISLAND = 5.5f;
 
-    public static final float WIDTH_PLAYER_GUN = 2;
-    public static final float HEIGHT_PLAYER_GUN = 10;
+    public static final float WIDTH_PLAYER_GUN = 1.2f;
+    public static final float HEIGHT_PLAYER_GUN = 4.2f;
 
     public static final float WIDTH_SCREEN = 100f;
     public static final float HEIGHT_SCREEN = 52f;
