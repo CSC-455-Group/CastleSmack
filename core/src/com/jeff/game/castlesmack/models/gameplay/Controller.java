@@ -8,6 +8,7 @@ public abstract class Controller {
 
     public boolean shoot;
     public MoveState cannonMoveState;
+    public MoveState cannonForceState;
     public final Player player;
 
     public Controller(Player player) {
@@ -15,13 +16,13 @@ public abstract class Controller {
         this.cannonMoveState = MoveState.NEUTRAL;
     }
 
-    public final void turnStart(TurnInfo info) {
+    public final void turnStart() {
         shoot = false;
         cannonMoveState = MoveState.NEUTRAL;
-        processTurn(info);
+        processTurn();
     }
 
-    protected abstract void processTurn(TurnInfo info);
+    protected abstract void processTurn();
 
     public abstract void update();
 

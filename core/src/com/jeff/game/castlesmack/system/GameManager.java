@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Island;
+import com.jeff.game.castlesmack.models.items.Projectile;
 import com.jeff.game.castlesmack.util.constant.Constants;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
@@ -18,8 +19,9 @@ public class GameManager {
     private int player;
     private boolean shoot;
     private Controller controller;
+    private Projectile projectile;
 
-    public GameManager(World world, Controller c1, Controller c2, Array<Island> islands) {
+    public GameManager(World world, Controller c1, Controller c2, Array<Island> islands, Projectile projectile) {
         // Set the world
         this.world = world;
         // Set the players
@@ -33,6 +35,7 @@ public class GameManager {
         this.player = 0;
         this.shoot = true;
         this.controller = controllers[0];
+        this.projectile = projectile;
     }
 
     public void checkCollisions() {
