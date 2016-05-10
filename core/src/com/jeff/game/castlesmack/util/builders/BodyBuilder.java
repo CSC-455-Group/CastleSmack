@@ -55,4 +55,21 @@ public class BodyBuilder {
         return body;
     }
 
+    public static Body circleBody(World world, float r, float x, float y, BodyDef.BodyType type) {
+        FixtureDef def = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(r);
+        def.shape = shape;
+
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = type;
+        bodyDef.position.set(x, y);
+
+        Body body = world.createBody(bodyDef);
+        body.createFixture(def);
+        shape.dispose();
+        return body;
+    }
+
 }

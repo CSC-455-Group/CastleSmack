@@ -2,6 +2,7 @@ package com.jeff.game.castlesmack.models.items;
 
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jeff.game.castlesmack.util.constant.Constants;
@@ -43,7 +44,8 @@ public class Cannon extends DamageAbleEntity {
     }
 
     public void shootProjectile(Projectile projectile) {
-
+        projectile.setPosition(body.getPosition().x + (MathUtils.cosDeg(getAngleDeg()) * height), body.getPosition().y + (MathUtils.sinDeg(getAngleDeg()) * height));
+        projectile.setVelocity((MathUtils.cosDeg(getAngleDeg()) * 20), (MathUtils.sinDeg(getAngleDeg()) * 20));
     }
 
     @Override
@@ -60,6 +62,9 @@ public class Cannon extends DamageAbleEntity {
                 } else {
                     mul = -1;
                 }
+                mul = -1;
+                //System.out.println(body.getTransform().getRotation() * MathUtils.radiansToDegrees);
+                System.out.println(getAngleDeg());
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEGATIVE:
@@ -68,6 +73,9 @@ public class Cannon extends DamageAbleEntity {
                 } else {
                     mul = 1;
                 }
+                mul = 1;
+                //System.out.println(body.getTransform().getRotation() * MathUtils.radiansToDegrees);
+                System.out.println(getAngleDeg());
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEUTRAL:
