@@ -8,7 +8,7 @@ public abstract class Controller {
 
     public boolean shoot;
     public MoveState cannonMoveState;
-    protected final Player player;
+    public final Player player;
 
     public Controller(Player player) {
         this.player = player;

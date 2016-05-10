@@ -52,4 +52,8 @@ public class Island extends Entity {
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
+
+    public Entity getEntity() {
+        return entity;
+    }
 }

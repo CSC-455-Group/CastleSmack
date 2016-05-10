@@ -2,28 +2,32 @@ package com.jeff.game.castlesmack.system;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.util.constant.Constants;
+import com.jeff.game.castlesmack.util.data.Pair;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
 
 public class GameManager {
     private World world;
-    private Player[] players;
+    private Controller[] controllers;
     private State state;
     private boolean switchedStates;
+    private Array<Island> islands;
 
-    public GameManager(World world, Player player1, Player player2, Array<Island> islands) {
+    public GameManager(World world, Controller c1, Controller c2, Array<Island> islands) {
         // Set the world
         this.world = world;
         // Set the players
-        this.players = new Player[2];
-        players[0] = player1;
-        players[1] = player2;
+        this.controllers = new Controller[2];
+        controllers[0] = c1;
+        controllers[1] = c2;
         // Set the initial game state
         this.state = State.BETWEEN_TURN;
         switchedStates = true;
+        this.islands = islands;
     }
 
     public void checkCollisions() {
@@ -45,14 +49,22 @@ public class GameManager {
     private void betweenTurn(float delta) {
         // Move the islands
         if (switchedStates) {
-            for (Player player : players) {
-                player.houseIsland.setDestination(ThreadLocalRandom.nextInt(0, (int) Constants.HEIGHT_SCREEN));
+            for (Island island : islands) {
+                island.setDestination(ThreadLocalRandom.nextInt((int) (island.height / 2), (int) (((int) Constants.HEIGHT_SCREEN) - ((island.height / 2) + (island.getEntity() != null ? island.getEntity().height : 0)))));
             }
             switchedStates = false;
         }
 
         // Check if the islands have reached their destination
-        if (players[0].houseIsland.hasReachedDestination() && players[1].houseIsland.hasReachedDestination()) {
+        boolean nextTurn = true;
+        for (Island island : islands) {
+            if(!island.hasReachedDestination()) {
+                nextTurn = false;
+            }
+        }
+
+        // Switch to the next turn
+        if(nextTurn) {
             state = state.getNextState();
         }
     }
@@ -63,11 +75,11 @@ public class GameManager {
     }
 
     public void updateUiP1Info(UiInfo info) {
-        updateUiPlayerInfo(info, players[0]);
+        updateUiPlayerInfo(info, controllers[0].player);
     }
 
     public void updateUiP2Info(UiInfo info) {
-        updateUiPlayerInfo(info, players[1]);
+        updateUiPlayerInfo(info, controllers[1].player);
     }
 
     private void updateUiPlayerInfo(UiInfo info, Player player) {
