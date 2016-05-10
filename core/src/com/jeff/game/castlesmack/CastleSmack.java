@@ -113,6 +113,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
                 i1,
                 i2
         );
+        world.setContactListener(this);
     }
 
     @Override
@@ -125,7 +126,13 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
         collisions.clear();
         world.step(1 / 60f, 10, 8);
         gameManager.checkCollisions(collisions);
-        gameManager.update(Gdx.graphics.getDeltaTime());
+
+        if (gameManager.winner == null) {
+            gameManager.update(Gdx.graphics.getDeltaTime());
+        } else {
+            uiManager.winner(gameManager.winner.id);
+        }
+
         gameManager.updateUiP1Info(uiManager.p1Info);
         gameManager.updateUiP2Info(uiManager.p2Info);
     }
@@ -134,6 +141,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        renderer.render(world, debugMatrix);
 
         batch.begin();
         batch.draw(sky, 0, 0, Constants.meterToPix(Constants.WIDTH_SCREEN), Constants.meterToPix(Constants.HEIGHT_SCREEN));
@@ -162,6 +170,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        System.out.println("BEGIN CONTACT:");
         Object ob1 = contact.getFixtureA().getBody().getUserData();
         Object ob2 = contact.getFixtureB().getBody().getUserData();
 
