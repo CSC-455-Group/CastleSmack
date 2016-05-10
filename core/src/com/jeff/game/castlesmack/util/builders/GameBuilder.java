@@ -45,7 +45,7 @@ public class GameBuilder {
         return new Pair<Island, Island>(houseIsland, gunIsland);
     }
 
-    public Player makePlayer(Pair<Island, Island> config, Controller controller, int id) {
+    public Player makePlayer(Pair<Island, Island> config, int id) {
         Island houseIsland = config._1;
         Island cannonIsland = config._2;
 
@@ -61,7 +61,7 @@ public class GameBuilder {
         houseIsland.setEntity(house);
         cannonIsland.setEntity(cannon);
 
-        return new Player(controller, house, cannon, houseIsland, cannonIsland, id);
+        return new Player(house, cannon, houseIsland, cannonIsland, id);
     }
 
     public Island makeIsland(float x, float y, float width, float height, boolean moves) {

@@ -8,9 +8,10 @@ public abstract class Controller {
 
     public boolean shoot;
     public MoveState cannonMoveState;
+    protected final Player player;
 
-    public Controller() {
-
+    public Controller(Player player) {
+        this.player = player;
     }
 
     public final void turnStart(TurnInfo info) {
