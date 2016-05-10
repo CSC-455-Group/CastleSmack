@@ -6,7 +6,7 @@ import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.util.constant.Constants;
-import com.jeff.game.castlesmack.util.data.Pair;
+import com.jeff.game.castlesmack.util.data.MoveState;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
 
@@ -16,6 +16,8 @@ public class GameManager {
     private State state;
     private boolean switchedStates;
     private Array<Island> islands;
+    private int player;
+    private boolean shoot;
 
     public GameManager(World world, Controller c1, Controller c2, Array<Island> islands) {
         // Set the world
@@ -28,6 +30,8 @@ public class GameManager {
         this.state = State.BETWEEN_TURN;
         switchedStates = true;
         this.islands = islands;
+        this.player = 0;
+        this.shoot = true;
     }
 
     public void checkCollisions() {
@@ -70,8 +74,26 @@ public class GameManager {
     }
 
     private void inTurn(float delta) {
+        // Get the current Controller
+        Controller controller = getCurrentController();
+        // Make sure the controller is up to date
+        controller.update();
         // Move the cannon
+        controller.player.cannon.rotate(controller.cannonMoveState);
+
         // Shoot
+        if(controller.shoot && shoot) {
+            shoot = false;
+            System.out.println("SHOTS FIRED!");
+            controller = nextController();
+            if(controller == null) {
+                state = state.getNextState();
+            }
+        } else {
+            if(!controller.shoot) {
+                shoot = true;
+            }
+        }
     }
 
     public void updateUiP1Info(UiInfo info) {
@@ -91,6 +113,21 @@ public class GameManager {
         info.cannonForce = player.cannon.currentForce;
         info.cannonMaxForce = player.cannon.maxForce;
         info.cannonPos = player.cannon.body.getPosition();
+    }
+
+    private Controller getCurrentController() {
+        return controllers[player];
+    }
+
+    private Controller nextController() {
+        int player = this.player + 1;
+        if(player == controllers.length) {
+            this.player = 0;
+            return null;
+        } else {
+            this.player = player;
+            return controllers[player];
+        }
     }
 
     private enum State {

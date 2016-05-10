@@ -91,7 +91,7 @@ public class CastleSmack extends ApplicationAdapter {
         Player player2 = builder.makePlayer(p2Islands, 1);
 
         Controller c1 = new Human(player1);
-        Controller c2 = new AI(player2);
+        Controller c2 = new Human(player2);
 
         gameManager = new GameManager(world, c1, c2, islands);
 

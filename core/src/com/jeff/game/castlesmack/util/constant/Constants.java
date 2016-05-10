@@ -18,6 +18,8 @@ public class Constants {
 
     public static final float VELOCITY_ISLAND = 5f;
 
+    public static final float ROTATION_SPEED_CANNON = 2.5f;
+
     public static final float WIDTH_PLAYER_ISLAND = 15;
     public static final float HEIGHT_PLAYER_ISLAND = 6.5f;
 
