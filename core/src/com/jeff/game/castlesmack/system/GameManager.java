@@ -1,5 +1,7 @@
 package com.jeff.game.castlesmack.system;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
@@ -22,6 +24,8 @@ public class GameManager {
     private Controller controller;
     private Projectile projectile;
     public Player winner = null;
+    private Sound launch;
+    private Sound explosion;
 
     public GameManager(World world, Controller c1, Controller c2, Array<Island> islands, Projectile projectile) {
         // Set the world
@@ -38,6 +42,8 @@ public class GameManager {
         this.shoot = true;
         this.controller = controllers[0];
         this.projectile = projectile;
+        this.launch = Gdx.audio.newSound(Gdx.files.internal("launch.mp3"));
+        this.explosion = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
     }
 
     public void checkCollisions(Array<Pair<Projectile, Entity>> projCollisions) {
@@ -46,9 +52,13 @@ public class GameManager {
             if (collision._2 instanceof House) {
                 House house = (House) collision._2;
                 house.currentHP -= proj.damage;
+                launch.stop();
+                explosion.play();
             } else if (collision._2 instanceof Cannon) {
                 Cannon can = (Cannon) collision._2;
                 can.currentHP -= proj.damage;
+                launch.stop();
+                explosion.play();
             }
             proj.setActive(false);
         }
@@ -112,9 +122,11 @@ public class GameManager {
             shoot = false;
             projectile.setActive(true);
             controller.player.cannon.shootProjectile(projectile);
+            launch.play();
         } else {
             if (!controller.shoot && !projectile.isActive() && !shoot) {
                 controller = nextController();
+                launch.stop();
                 if (controller == null) {
                     state = state.getNextState();
                     nextController();
