@@ -14,11 +14,13 @@ public abstract class Controller {
     public Controller(Player player) {
         this.player = player;
         this.cannonMoveState = MoveState.NEUTRAL;
+        this.cannonForceState = MoveState.NEUTRAL;
     }
 
     public final void turnStart() {
         shoot = false;
         cannonMoveState = MoveState.NEUTRAL;
+        cannonForceState = MoveState.NEUTRAL;
         processTurn();
     }
 
