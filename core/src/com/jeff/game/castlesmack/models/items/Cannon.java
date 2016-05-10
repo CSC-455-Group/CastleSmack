@@ -2,12 +2,10 @@ package com.jeff.game.castlesmack.models.items;
 
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.jeff.game.castlesmack.util.builders.BodyBuilder;
-import com.jeff.game.castlesmack.util.data.MoveState;
 import com.jeff.game.castlesmack.util.constant.Constants;
+import com.jeff.game.castlesmack.util.data.MoveState;
 
 public class Cannon extends DamageAbleEntity {
 
@@ -57,7 +55,7 @@ public class Cannon extends DamageAbleEntity {
         int mul;
         switch (moveState) {
             case POSITIVE:
-                if(body.getTransform().getRotation() <= -1.54) {
+                if (body.getTransform().getRotation() <= -1.54) {
                     mul = 0;
                 } else {
                     mul = -1;
@@ -65,7 +63,7 @@ public class Cannon extends DamageAbleEntity {
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEGATIVE:
-                if(body.getTransform().getRotation() >= 1.54) {
+                if (body.getTransform().getRotation() >= 1.54) {
                     mul = 0;
                 } else {
                     mul = 1;
@@ -76,7 +74,6 @@ public class Cannon extends DamageAbleEntity {
                 body.setAngularVelocity(0f);
                 break;
         }
-
 
     }
 }
