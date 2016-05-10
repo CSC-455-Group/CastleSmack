@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Cannon;
+import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.House;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.util.constant.Constants;

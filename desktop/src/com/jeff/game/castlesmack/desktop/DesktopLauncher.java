@@ -9,8 +9,8 @@ import com.jeff.game.castlesmack.util.constant.Constants;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = MathUtils.round(Constants.meterToPix(100f));
-        config.height = MathUtils.round(Constants.meterToPix(52));
+        config.width = MathUtils.round(Constants.meterToPix(Constants.WIDTH_SCREEN));
+        config.height = MathUtils.round(Constants.meterToPix(Constants.HEIGHT_SCREEN));
         config.title = "Castle Smack";
         new LwjglApplication(new CastleSmack(), config);
 	}
