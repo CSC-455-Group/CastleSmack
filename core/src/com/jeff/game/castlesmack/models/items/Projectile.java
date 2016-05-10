@@ -18,6 +18,14 @@ public class Projectile extends Entity {
         this.weight = weight;
     }
 
+    public boolean isActive() {
+        return body.isActive();
+    }
+
+    public void setActive(boolean flag) {
+        body.setActive(flag);
+    }
+
     @Override
     protected Body createBody(World world, float x, float y, float width, float height) {
         return BodyBuilder.rectangleBody(world, width, height, x, y, BodyDef.BodyType.DynamicBody);

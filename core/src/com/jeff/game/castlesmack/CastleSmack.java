@@ -95,6 +95,7 @@ public class CastleSmack extends ApplicationAdapter {
         Controller c2 = new Human(player2);
         Projectile projectile = new Projectile(world, 0, 0, 4, 4, new TextureRegion(map.get(TexConstants.ROCK)),
                 Constants.PLAYER_PROJECTILE_DAMAGE_START, Constants.PLAYER_PROJECTILE_WEIGHT);
+        projectile.body.setActive(false);
 
         gameManager = new GameManager(world, c1, c2, islands, projectile);
 
