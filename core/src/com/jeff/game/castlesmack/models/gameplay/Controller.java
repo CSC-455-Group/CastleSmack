@@ -12,6 +12,7 @@ public abstract class Controller {
 
     public Controller(Player player) {
         this.player = player;
+        this.cannonMoveState = MoveState.NEUTRAL;
     }
 
     public final void turnStart(TurnInfo info) {

@@ -25,7 +25,6 @@ public class Island extends Entity {
     }
 
     public void setDestination(float destination) {
-        System.out.println("DESTINATION:" + destination);
         // Set the destination
         this.destination = destination;
         // Get the current y position
@@ -40,7 +39,7 @@ public class Island extends Entity {
             entity.setPosition(body.getTransform().getPosition().x, body.getTransform().getPosition().y + (height / 2) + (entity.height / 2));
         }
         // Check if the island has reached its destination
-        if(((destination - body.getTransform().getPosition().y) * (body.getLinearVelocity().y / Math.abs(body.getLinearVelocity().y))) <= 0) {
+        if(((destination - body.getTransform().getPosition().y) * (body.getLinearVelocity().y / Math.abs(body.getLinearVelocity().y))) <= 0 || body.getLinearVelocity().y == 0f) {
             // Destination has been reached, stop moving
             body.setLinearVelocity(0f, 0f);
             return true;
