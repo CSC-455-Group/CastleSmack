@@ -1,7 +1,9 @@
 package com.jeff.game.castlesmack.system;
 
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.jeff.game.castlesmack.models.gameplay.Player;
+import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.util.constant.Constants;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
@@ -12,7 +14,7 @@ public class GameManager {
     private State state;
     private boolean switchedStates;
 
-    public GameManager(World world, Player player1, Player player2) {
+    public GameManager(World world, Player player1, Player player2, Array<Island> islands) {
         // Set the world
         this.world = world;
         // Set the players

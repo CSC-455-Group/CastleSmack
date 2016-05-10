@@ -77,9 +77,21 @@ public class CastleSmack extends ApplicationAdapter {
         Controller c1 = new Human();
         Controller c2 = new AI();
 
+        Array<Island> islands = new Array<Island>();
+
+        Island i1 = builder.makeIsland(41, 18, 8, 6.1f, true);
+        Island i2 = builder.makeIsland(58, 18, 3, 5.6f, true);
+
+        islands.addAll(
+                p1Islands._1,
+                p1Islands._2,
+                p2Islands._1,
+                p2Islands._2,
+                i1, i2);
+
         Player player1 = builder.makePlayer(p1Islands, c1, 0);
         Player player2 = builder.makePlayer(p2Islands, c2, 1);
-        gameManager = new GameManager(world, player1, player2);
+        gameManager = new GameManager(world, player1, player2, islands);
 
         entities.addAll(
                 p1Islands._1,
