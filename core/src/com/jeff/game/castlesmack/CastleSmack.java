@@ -10,16 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Human;
 import com.jeff.game.castlesmack.models.gameplay.Player;
-import com.jeff.game.castlesmack.models.items.Entity;
-import com.jeff.game.castlesmack.models.items.Island;
-import com.jeff.game.castlesmack.models.items.Projectile;
+import com.jeff.game.castlesmack.models.items.*;
 import com.jeff.game.castlesmack.system.GameManager;
 import com.jeff.game.castlesmack.system.UIManager;
 import com.jeff.game.castlesmack.util.builders.GameBuilder;
@@ -28,7 +25,7 @@ import com.jeff.game.castlesmack.util.constant.Constants.TexConstants;
 import com.jeff.game.castlesmack.util.data.Pair;
 
 
-public class CastleSmack extends ApplicationAdapter {
+public class CastleSmack extends ApplicationAdapter implements ContactListener {
 
     private World world;
     private Box2DDebugRenderer renderer;
@@ -38,6 +35,8 @@ public class CastleSmack extends ApplicationAdapter {
     private UIManager uiManager;
     private Array<Entity> entities = new Array<Entity>(false, 10);
     private SpriteBatch batch;
+    private Array<Pair<Projectile, Entity>> collisions = new Array<Pair<Projectile, Entity>>();
+    private TextureRegion sky;
 
     @Override
 
@@ -56,6 +55,7 @@ public class CastleSmack extends ApplicationAdapter {
         manager.load(TexConstants.ISLAND, Texture.class);
         manager.load(TexConstants.PIPE, Texture.class);
         manager.load(TexConstants.ROCK, Texture.class);
+        manager.load(TexConstants.SKY, Texture.class);
 
         manager.finishLoading();
 
@@ -64,6 +64,7 @@ public class CastleSmack extends ApplicationAdapter {
         map.put(TexConstants.ISLAND, manager.get(TexConstants.ISLAND, Texture.class));
         map.put(TexConstants.PIPE, manager.get(TexConstants.PIPE, Texture.class));
         map.put(TexConstants.ROCK, manager.get(TexConstants.ROCK, Texture.class));
+        sky = new TextureRegion(manager.get(TexConstants.SKY, Texture.class));
 
         GameBuilder builder = new GameBuilder(world, map);
         Pair<Island, Island> p1Islands = builder.makeHouseGunIslands(new Pair<Vector2, Vector2>(
@@ -121,8 +122,9 @@ public class CastleSmack extends ApplicationAdapter {
     }
 
     private void update() {
+        collisions.clear();
         world.step(1 / 60f, 10, 8);
-        gameManager.checkCollisions();
+        gameManager.checkCollisions(collisions);
         gameManager.update(Gdx.graphics.getDeltaTime());
         gameManager.updateUiP1Info(uiManager.p1Info);
         gameManager.updateUiP2Info(uiManager.p2Info);
@@ -131,16 +133,17 @@ public class CastleSmack extends ApplicationAdapter {
     private void draw() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderer.render(world, debugMatrix);
+       renderer.render(world, debugMatrix);
 
-        /*batch.begin();
+        batch.begin();
+        batch.draw(sky, 0, 0, Constants.meterToPix(Constants.WIDTH_SCREEN), Constants.meterToPix(Constants.HEIGHT_SCREEN));
         for (int i = 0; i < entities.size; i++) {
             Entity entity = entities.get(i);
             if (entity.body.isActive()) {
                 entity.draw(batch);
             }
         }
-        batch.end();*/
+        batch.end();
 
         batch.begin();
         uiManager.draw(batch);
@@ -155,5 +158,40 @@ public class CastleSmack extends ApplicationAdapter {
         renderer.dispose();
         world.dispose();
         uiManager.dispose();
+    }
+
+    @Override
+    public void beginContact(Contact contact) {
+        Object ob1 = contact.getFixtureA().getBody().getUserData();
+        Object ob2 = contact.getFixtureB().getBody().getUserData();
+
+        if (ob1 instanceof Projectile || ob2 instanceof Projectile) {
+            Projectile projectile = (Projectile) (ob1 instanceof Projectile ? ob1 : ob2);
+            projectile.collided = true;
+
+            if (ob1 instanceof Cannon || ob2 instanceof Cannon) {
+                Cannon cannon = (Cannon) (ob1 instanceof Cannon ? ob1 : ob2);
+                collisions.add(new Pair<Projectile, Entity>(projectile, cannon));
+            } else if (ob1 instanceof House || ob2 instanceof House) {
+                House house = (House) (ob1 instanceof House ? ob1 : ob2);
+                collisions.add(new Pair<Projectile, Entity>(projectile, house));
+            }
+        }
+
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
     }
 }

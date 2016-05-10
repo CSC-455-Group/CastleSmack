@@ -11,6 +11,7 @@ public class Projectile extends Entity {
 
     public float damage;
     private float weight;
+    public boolean collided = false;
 
     public Projectile(World world, float x, float y, float width, float height, TextureRegion texture, float damage, float weight) {
         super(world, x, y, width, height, texture);

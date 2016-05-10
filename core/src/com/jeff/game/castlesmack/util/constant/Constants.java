@@ -9,6 +9,7 @@ public class Constants {
         public static final String HOUSE = "house.png";
         public static final String PIPE = "pipe.png";
         public static final String ROCK = "rock.png";
+        public static final String SKY = "sky-2.jpg";
 
     }
 

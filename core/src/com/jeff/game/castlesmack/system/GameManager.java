@@ -4,9 +4,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
+import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.Island;
 import com.jeff.game.castlesmack.models.items.Projectile;
 import com.jeff.game.castlesmack.util.constant.Constants;
+import com.jeff.game.castlesmack.util.data.Pair;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
 import com.jeff.game.castlesmack.util.data.UiInfo;
 
@@ -38,7 +40,7 @@ public class GameManager {
         this.projectile = projectile;
     }
 
-    public void checkCollisions() {
+    public void checkCollisions(Array<Pair<Projectile, Entity>> projCollisions) {
 
     }
 

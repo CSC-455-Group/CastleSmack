@@ -1,11 +1,15 @@
 package com.jeff.game.castlesmack.models.items;
 
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.jeff.game.castlesmack.util.constant.Constants;
 import com.jeff.game.castlesmack.util.data.MoveState;
+
+import static com.jeff.game.castlesmack.util.constant.Constants.meterToPix;
 
 public class Cannon extends DamageAbleEntity {
 
@@ -75,5 +79,17 @@ public class Cannon extends DamageAbleEntity {
                 break;
         }
 
+    }
+
+    @Override
+    public void draw(Batch batch) {
+        Vector2 pos = body.getPosition();
+        final float pixWidth = meterToPix(width);
+        final float pixHeight = meterToPix(height);
+        oX = pixWidth / 2.0f;
+        oY = 0;
+        batch.draw(texture, meterToPix(pos.x) - (pixWidth / 2.0f),
+                meterToPix(pos.y),
+                oX, oY, pixWidth, pixHeight, 1, 1, body.getAngle() * MathUtils.radDeg);
     }
 }
