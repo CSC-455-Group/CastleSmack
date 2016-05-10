@@ -16,6 +16,8 @@ public class Constants {
 
     private static final float PIX_TO_M = 1.0f / M_TO_PIX;
 
+    public static final float VELOCITY_ISLAND = 5f;
+
     public static final float WIDTH_PLAYER_ISLAND = 15;
     public static final float HEIGHT_PLAYER_ISLAND = 6.5f;
 
@@ -27,6 +29,9 @@ public class Constants {
 
     public static final float WIDTH_PLAYER_GUN = 2;
     public static final float HEIGHT_PLAYER_GUN = 10;
+
+    public static final float WIDTH_SCREEN = 100f;
+    public static final float HEIGHT_SCREEN = 52f;
 
     public static final float PLAYER_HOUSE_MAX_HP_START = 1000;
     public static final float PLAYER_GUN_MAX_HP_START = 400;
