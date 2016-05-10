@@ -14,6 +14,7 @@ public class UIManager implements Disposable {
     public final UiInfo p1Info = new UiInfo();
     public final UiInfo p2Info = new UiInfo();
     private final BitmapFont font = new BitmapFont();
+    private int windID = -1;
 
     private static final float HOUSE_Y_OFF = (Constants.HEIGHT_PLAYER_HOUSE / 2.0f) + 3;
     private static final float HOUSE_X_OFF = (Constants.WIDTH_PLAYER_HOUSE / 2.0f);
@@ -31,6 +32,10 @@ public class UIManager implements Disposable {
         draw(p2Info, P2_FORCE_X_OFF, batch);
     }
 
+    public void winner(int ID) {
+        windID = ID;
+    }
+
     private void draw(UiInfo uiInfo, float forceOff, SpriteBatch batch) {
         font.draw(batch, String.format("HP:%s/%s", uiInfo.houseHp, uiInfo.houseMaxHp),
                 meterToPix(uiInfo.housePos.x - HOUSE_X_OFF), meterToPix(uiInfo.housePos.y + HOUSE_Y_OFF));
@@ -38,6 +43,7 @@ public class UIManager implements Disposable {
                 meterToPix(uiInfo.cannonPos.x - GUN_X_OFF), meterToPix(uiInfo.cannonPos.y + GUN_Y_OFF));
         font.draw(batch, String.format("%s/%s", Math.round(uiInfo.cannonForce), uiInfo.cannonMaxForce),
                 meterToPix(uiInfo.cannonPos.x + forceOff), meterToPix(uiInfo.cannonPos.y - (GUN_Y_OFF / 2.0f)));
+
     }
 
     @Override

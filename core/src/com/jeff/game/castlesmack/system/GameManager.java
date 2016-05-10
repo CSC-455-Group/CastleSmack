@@ -4,9 +4,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.jeff.game.castlesmack.models.gameplay.Controller;
 import com.jeff.game.castlesmack.models.gameplay.Player;
-import com.jeff.game.castlesmack.models.items.Entity;
-import com.jeff.game.castlesmack.models.items.Island;
-import com.jeff.game.castlesmack.models.items.Projectile;
+import com.jeff.game.castlesmack.models.items.*;
 import com.jeff.game.castlesmack.util.constant.Constants;
 import com.jeff.game.castlesmack.util.data.Pair;
 import com.jeff.game.castlesmack.util.data.ThreadLocalRandom;
@@ -22,6 +20,7 @@ public class GameManager {
     private boolean shoot;
     private Controller controller;
     private Projectile projectile;
+    public Player winner;
 
     public GameManager(World world, Controller c1, Controller c2, Array<Island> islands, Projectile projectile) {
         // Set the world
@@ -41,6 +40,26 @@ public class GameManager {
     }
 
     public void checkCollisions(Array<Pair<Projectile, Entity>> projCollisions) {
+        for (Pair<Projectile, Entity> collision : projCollisions) {
+            Projectile proj = collision._1;
+            if (collision._2 instanceof House) {
+                House house = (House) collision._2;
+                house.currentHP -= proj.damage;
+            } else if (collision._2 instanceof Cannon) {
+                Cannon can = (Cannon) collision._2;
+                can.currentHP -= proj.damage;
+            }
+            proj.setActive(false);
+        }
+
+        Player p1 = controllers[0].player;
+        Player p2 = controllers[1].player;
+
+        if (p1.house.currentHP <= 0 || p1.cannon.currentHP <= 0) {//p1 loses
+            winner = p2;
+        } else if (p2.house.currentHP <= 0 || p2.cannon.currentForce <= 0) {//p2 loses
+            winner = p1;
+        }
 
     }
 
@@ -68,13 +87,13 @@ public class GameManager {
         // Check if the islands have reached their destination
         boolean nextTurn = true;
         for (Island island : islands) {
-            if(!island.hasReachedDestination()) {
+            if (!island.hasReachedDestination()) {
                 nextTurn = false;
             }
         }
 
         // Switch to the next turn
-        if(nextTurn) {
+        if (nextTurn) {
             state = state.getNextState();
         }
     }
@@ -89,15 +108,15 @@ public class GameManager {
         projectile.isOffScreen();
 
         // Shoot
-        if(controller.shoot && shoot) {
+        if (controller.shoot && shoot) {
             shoot = false;
             projectile.setActive(true);
             controller.player.cannon.shootProjectile(projectile);
             System.out.println("SHOTS FIRED!");
         } else {
-            if(!controller.shoot && !projectile.isActive() && !shoot) {
+            if (!controller.shoot && !projectile.isActive() && !shoot) {
                 controller = nextController();
-                if(controller == null) {
+                if (controller == null) {
                     state = state.getNextState();
                     nextController();
                 }
@@ -126,12 +145,12 @@ public class GameManager {
     }
 
     private Controller nextController() {
-        if(controller == null) {
+        if (controller == null) {
             controller = controllers[0];
             return controller;
         }
         int player = this.player + 1;
-        if(player == controllers.length) {
+        if (player == controllers.length) {
             this.player = 0;
             return null;
         } else {
