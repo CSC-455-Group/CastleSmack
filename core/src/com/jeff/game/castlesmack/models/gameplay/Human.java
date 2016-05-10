@@ -27,6 +27,14 @@ public class Human extends Controller {
             cannonMoveState = MoveState.NEUTRAL;
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cannonForceState = MoveState.POSITIVE;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cannonForceState = MoveState.NEGATIVE;
+        } else {
+            cannonForceState = MoveState.NEUTRAL;
+        }
+
         shoot = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
     }

@@ -1,6 +1,7 @@
 package com.jeff.game.castlesmack.models.items;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -48,7 +49,7 @@ public class Cannon extends DamageAbleEntity {
 
     public void shootProjectile(Projectile projectile) {
         projectile.setPosition(body.getPosition().x + (MathUtils.cosDeg(getAngleDeg()) * height), body.getPosition().y + (MathUtils.sinDeg(getAngleDeg()) * height));
-        projectile.setVelocity((MathUtils.cosDeg(getAngleDeg()) * 20), (MathUtils.sinDeg(getAngleDeg()) * 20));
+        projectile.setVelocity((MathUtils.cosDeg(getAngleDeg()) * currentForce), (MathUtils.sinDeg(getAngleDeg()) * currentForce));
     }
 
     @Override
@@ -65,9 +66,6 @@ public class Cannon extends DamageAbleEntity {
                 } else {
                     mul = -1;
                 }
-                mul = -1;
-                //System.out.println(body.getTransform().getRotation() * MathUtils.radiansToDegrees);
-                System.out.println(getAngleDeg());
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEGATIVE:
@@ -76,9 +74,6 @@ public class Cannon extends DamageAbleEntity {
                 } else {
                     mul = 1;
                 }
-                mul = 1;
-                //System.out.println(body.getTransform().getRotation() * MathUtils.radiansToDegrees);
-                System.out.println(getAngleDeg());
                 body.setAngularVelocity(mul * Constants.ROTATION_SPEED_CANNON);
                 break;
             case NEUTRAL:
@@ -86,6 +81,25 @@ public class Cannon extends DamageAbleEntity {
                 break;
         }
 
+    }
+
+    public void force(MoveState forceState) {
+        switch (forceState) {
+            case POSITIVE: {
+                if (currentForce < maxForce) {
+                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), maxForce - currentForce);
+                    currentForce += smallest;
+                }
+                break;
+            }
+            case NEGATIVE: {
+                if (currentForce > maxForce) {
+                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), currentForce - maxForce);
+                    currentForce += smallest;
+                }
+                break;
+            }
+        }
     }
 
     @Override

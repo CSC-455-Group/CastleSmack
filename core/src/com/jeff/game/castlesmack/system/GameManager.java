@@ -84,6 +84,7 @@ public class GameManager {
         controller.update();
         // Move the cannon
         controller.player.cannon.rotate(controller.cannonMoveState);
+        controller.player.cannon.force(controller.cannonForceState);
         // Update the projectile
         projectile.isOffScreen();
 

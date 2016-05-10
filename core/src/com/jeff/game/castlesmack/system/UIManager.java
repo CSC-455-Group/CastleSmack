@@ -36,7 +36,7 @@ public class UIManager implements Disposable {
                 meterToPix(uiInfo.housePos.x - HOUSE_X_OFF), meterToPix(uiInfo.housePos.y + HOUSE_Y_OFF));
         font.draw(batch, String.format("HP::%s/%s", uiInfo.cannonHp, uiInfo.cannonMaxHp),
                 meterToPix(uiInfo.cannonPos.x - GUN_X_OFF), meterToPix(uiInfo.cannonPos.y + GUN_Y_OFF));
-        font.draw(batch, String.format("%s/%s", uiInfo.cannonForce, uiInfo.cannonMaxForce),
+        font.draw(batch, String.format("%s/%s", Math.round(uiInfo.cannonForce), uiInfo.cannonMaxForce),
                 meterToPix(uiInfo.cannonPos.x + forceOff), meterToPix(uiInfo.cannonPos.y - (GUN_Y_OFF / 2.0f)));
     }
 

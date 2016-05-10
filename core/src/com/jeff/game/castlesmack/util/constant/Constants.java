@@ -42,6 +42,7 @@ public class Constants {
     public static final float PLAYER_GUN_MAX_FORCE_START = 100;
     public static final float PLAYER_PROJECTILE_DAMAGE_START = 200;
     public static final float PLAYER_PROJECTILE_WEIGHT = 100;
+    public static final float FORCE_INCREASE_SPEED = 15;
 
     public static float meterToPix(float meter) {
         return meter * M_TO_PIX;
