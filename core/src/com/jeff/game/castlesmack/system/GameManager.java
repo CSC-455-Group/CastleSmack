@@ -56,12 +56,11 @@ public class GameManager {
         Player p1 = controllers[0].player;
         Player p2 = controllers[1].player;
 
-        /*if (p1.house.currentHP <= 0 || p1.cannon.currentHP <= 0) {//p1 loses
+        if (p1.house.currentHP <= 0 || p1.cannon.currentHP <= 0) {//p1 loses
             winner = p2;
-        } else if (p2.house.currentHP <= 0 || p2.cannon.currentForce <= 0) {//p2 loses
+        } else if (p2.house.currentHP <= 0 || p2.cannon.currentHP <= 0) {//p2 loses
             winner = p1;
-        }*/
-
+        }
     }
 
     public void update(float delta) {

@@ -43,7 +43,10 @@ public class UIManager implements Disposable {
                 meterToPix(uiInfo.cannonPos.x - GUN_X_OFF), meterToPix(uiInfo.cannonPos.y + GUN_Y_OFF));
         font.draw(batch, String.format("%s/%s", Math.round(uiInfo.cannonForce), uiInfo.cannonMaxForce),
                 meterToPix(uiInfo.cannonPos.x + forceOff), meterToPix(uiInfo.cannonPos.y - (GUN_Y_OFF / 2.0f)));
-
+        if(windID != -1) {
+            font.draw(batch, "PLAYER " + (windID + 1) + " IS THE WINNER!", Constants.meterToPix(Constants.WIDTH_SCREEN / 2.0f),
+                    Constants.meterToPix(Constants.HEIGHT_SCREEN / 2.0f), Constants.meterToPix(20), 0, true);
+        }
     }
 
     @Override
