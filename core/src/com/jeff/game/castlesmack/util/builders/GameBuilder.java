@@ -57,6 +57,10 @@ public class GameBuilder {
 
         House house = makeHouse(hp.x, hp.y, id);
         Cannon cannon = makeCannon(ip.x, ip.y, id);
+
+        houseIsland.setEntity(house);
+        cannonIsland.setEntity(cannon);
+
         return new Player(controller, house, cannon, houseIsland, cannonIsland, id);
     }
 

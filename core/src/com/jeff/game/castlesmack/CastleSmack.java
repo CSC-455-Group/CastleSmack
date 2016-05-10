@@ -19,7 +19,7 @@ import com.jeff.game.castlesmack.models.gameplay.Human;
 import com.jeff.game.castlesmack.models.gameplay.Player;
 import com.jeff.game.castlesmack.models.items.Entity;
 import com.jeff.game.castlesmack.models.items.Island;
-import com.jeff.game.castlesmack.system.BetterGameManager;
+import com.jeff.game.castlesmack.system.GameManager;
 import com.jeff.game.castlesmack.system.UIManager;
 import com.jeff.game.castlesmack.util.builders.GameBuilder;
 import com.jeff.game.castlesmack.util.constant.Constants;
@@ -33,7 +33,7 @@ public class CastleSmack extends ApplicationAdapter {
     private Box2DDebugRenderer renderer;
     private Matrix4 debugMatrix;
     private AssetManager manager;
-    private BetterGameManager gameManager;
+    private GameManager gameManager;
     private UIManager uiManager;
     private Array<Entity> entities = new Array<Entity>(false, 10);
     private SpriteBatch batch;
@@ -79,7 +79,7 @@ public class CastleSmack extends ApplicationAdapter {
 
         Player player1 = builder.makePlayer(p1Islands, c1, 0);
         Player player2 = builder.makePlayer(p2Islands, c2, 1);
-        gameManager = new BetterGameManager(world, player1, player2);
+        gameManager = new GameManager(world, player1, player2);
 
         entities.addAll(
                 p1Islands._1,

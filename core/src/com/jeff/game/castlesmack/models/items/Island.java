@@ -25,6 +25,7 @@ public class Island extends Entity {
     }
 
     public void setDestination(float destination) {
+        System.out.println("DESTINATION:" + destination);
         // Set the destination
         this.destination = destination;
         // Get the current y position
