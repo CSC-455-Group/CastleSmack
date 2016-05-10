@@ -60,6 +60,7 @@ public class BodyBuilder {
         CircleShape shape = new CircleShape();
         shape.setRadius(r);
         def.shape = shape;
+        def.restitution = 5f;
 
 
         BodyDef bodyDef = new BodyDef();
