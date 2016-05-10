@@ -94,7 +94,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
         Player player2 = builder.makePlayer(p2Islands, 1);
 
         Controller c1 = new Human(player1);
-        Controller c2 = new Human(player2);
+        Controller c2 = new AI(player2);
         Projectile projectile = new Projectile(world, 0, 0, 1, 1, new TextureRegion(map.get(TexConstants.ROCK)),
                 Constants.PLAYER_PROJECTILE_DAMAGE_START, Constants.PLAYER_PROJECTILE_WEIGHT);
         projectile.body.setActive(false);

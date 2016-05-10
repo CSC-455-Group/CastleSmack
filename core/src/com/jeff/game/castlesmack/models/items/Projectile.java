@@ -37,7 +37,7 @@ public class Projectile extends Entity {
         float y = body.getTransform().getPosition().y;
 
         // Check if the projectile is off screen
-        if(x < 0 || x > Constants.WIDTH_SCREEN || y < 0) {
+        if(x < 0 || x > Constants.WIDTH_SCREEN || y < 0 || y > Constants.HEIGHT_SCREEN + 100) {
             setActive(false);
             return true;
         } else {

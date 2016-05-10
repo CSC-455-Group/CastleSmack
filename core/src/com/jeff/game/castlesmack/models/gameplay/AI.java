@@ -9,6 +9,7 @@ public class AI extends Controller {
 
     private float force;
     private float targAngle;
+    private boolean processTurn;
 
     public AI(Player player) {
         super(player);
@@ -16,8 +17,9 @@ public class AI extends Controller {
 
     @Override
     protected void processTurn() {
-        force = ThreadLocalRandom.nextInt(3, 25);
+        force = ThreadLocalRandom.nextInt(3, 50);
         targAngle = ThreadLocalRandom.nextInt(90, 180);
+        shoot = false;
     }
 
     @Override
@@ -47,7 +49,12 @@ public class AI extends Controller {
             }
         } else {
             cannonForceState = MoveState.NEUTRAL;
-            shoot = true;
+            if(shoot) {
+                shoot = false;
+            } else {
+                shoot = true;
+            }
+
         }
     }
 
