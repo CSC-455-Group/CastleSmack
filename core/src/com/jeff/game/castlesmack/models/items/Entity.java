@@ -45,4 +45,14 @@ public abstract class Entity {
     public void setPosition(float x, float y) {
         body.setTransform(x, y, body.getTransform().getRotation());
     }
+
+    public float getAngleDeg() {
+        float angle = body.getTransform().getRotation() * MathUtils.radiansToDegrees;
+        angle += 90;
+        if(angle < 0) {
+            angle = 360 - Math.abs(angle);
+        }
+
+        return angle;
+    }
 }

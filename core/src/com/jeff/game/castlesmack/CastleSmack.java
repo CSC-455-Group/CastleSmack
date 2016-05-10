@@ -46,7 +46,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
         uiManager = new UIManager();
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        world = new World(new Vector2(0, 9.81f), true);
+        world = new World(new Vector2(0, -9.81f), true);
         debugMatrix = new Matrix4(camera.combined);
         debugMatrix.scale(Constants.M_TO_PIX, Constants.M_TO_PIX, 1f);
         renderer = new Box2DDebugRenderer();
@@ -94,7 +94,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
 
         Controller c1 = new Human(player1);
         Controller c2 = new Human(player2);
-        Projectile projectile = new Projectile(world, 0, 0, 4, 4, new TextureRegion(map.get(TexConstants.ROCK)),
+        Projectile projectile = new Projectile(world, 0, 0, 1, 1, new TextureRegion(map.get(TexConstants.ROCK)),
                 Constants.PLAYER_PROJECTILE_DAMAGE_START, Constants.PLAYER_PROJECTILE_WEIGHT);
         projectile.body.setActive(false);
 

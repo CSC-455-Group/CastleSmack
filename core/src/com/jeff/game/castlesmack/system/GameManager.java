@@ -84,17 +84,22 @@ public class GameManager {
         controller.update();
         // Move the cannon
         controller.player.cannon.rotate(controller.cannonMoveState);
+        // Update the projectile
+        projectile.isOffScreen();
 
         // Shoot
         if(controller.shoot && shoot) {
             shoot = false;
+            projectile.setActive(true);
+            controller.player.cannon.shootProjectile(projectile);
             System.out.println("SHOTS FIRED!");
-            controller = nextController();
-            if(controller == null) {
-                state = state.getNextState();
-            }
         } else {
-            if(!controller.shoot) {
+            if(!controller.shoot && !projectile.isActive() && !shoot) {
+                controller = nextController();
+                if(controller == null) {
+                    state = state.getNextState();
+                    nextController();
+                }
                 shoot = true;
             }
         }
@@ -120,6 +125,10 @@ public class GameManager {
     }
 
     private Controller nextController() {
+        if(controller == null) {
+            controller = controllers[0];
+            return controller;
+        }
         int player = this.player + 1;
         if(player == controllers.length) {
             this.player = 0;
