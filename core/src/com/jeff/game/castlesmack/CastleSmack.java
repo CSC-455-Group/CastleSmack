@@ -56,7 +56,7 @@ public class CastleSmack extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         world.step(1 / 60f, 10, 8);
-        gameManager.runCollisions();
+        gameManager.checkCollisions();
         gameManager.update(Gdx.graphics.getDeltaTime());
         renderer.render(world, debugMatrix);
     }

@@ -14,11 +14,9 @@ public class Island extends Entity {
     private float destination;
     private Entity entity;
 
-    public Island(World world, float x, float y, float width, float height, TextureRegion texture, boolean relocates, Entity entity) {
+    public Island(World world, float x, float y, float width, float height, TextureRegion texture, boolean relocates) {
         super(world, x, y, width, height, texture);
         this.relocates = relocates;
-        // Se the entity on top of the island
-        this.entity = entity;
     }
 
     @Override
@@ -37,7 +35,9 @@ public class Island extends Entity {
 
     public boolean hasReachedDestination() {
         // Update the entity position that's on the island
-        entity.setPosition(body.getTransform().getPosition().x, body.getTransform().getPosition().y + (height / 2) + (entity.height / 2));
+        if(entity != null) {
+            entity.setPosition(body.getTransform().getPosition().x, body.getTransform().getPosition().y + (height / 2) + (entity.height / 2));
+        }
         // Check if the island has reached its destination
         if(((destination - body.getTransform().getPosition().y) * (body.getLinearVelocity().y / Math.abs(body.getLinearVelocity().y))) <= 0) {
             // Destination has been reached, stop moving
@@ -46,5 +46,9 @@ public class Island extends Entity {
         } else {
             return false;
         }
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }
