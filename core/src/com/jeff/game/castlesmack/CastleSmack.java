@@ -133,7 +133,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
     private void draw() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-       renderer.render(world, debugMatrix);
+
 
         batch.begin();
         batch.draw(sky, 0, 0, Constants.meterToPix(Constants.WIDTH_SCREEN), Constants.meterToPix(Constants.HEIGHT_SCREEN));
@@ -144,7 +144,7 @@ public class CastleSmack extends ApplicationAdapter implements ContactListener {
             }
         }
         batch.end();
-
+        renderer.render(world, debugMatrix);
         batch.begin();
         uiManager.draw(batch);
         batch.end();

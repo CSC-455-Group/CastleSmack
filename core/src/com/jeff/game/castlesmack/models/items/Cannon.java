@@ -86,16 +86,16 @@ public class Cannon extends DamageAbleEntity {
     public void force(MoveState forceState) {
         switch (forceState) {
             case POSITIVE: {
-                if (currentForce < maxForce) {
-                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), maxForce - currentForce);
+                if (currentForce <= maxForce) {
+                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), Math.abs(maxForce - currentForce));
                     currentForce += smallest;
                 }
                 break;
             }
             case NEGATIVE: {
-                if (currentForce > maxForce) {
-                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), currentForce - maxForce);
-                    currentForce += smallest;
+                if (currentForce >= 0) {
+                    float smallest = Math.min(Constants.FORCE_INCREASE_SPEED * Gdx.graphics.getDeltaTime(), Math.abs(currentForce - maxForce));
+                    currentForce -= smallest;
                 }
                 break;
             }
